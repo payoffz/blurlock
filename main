@@ -1,1 +1,259 @@
-loadstring("\108\111\99\97\108\32\79\114\105\111\110\76\105\98\32\61\32\108\111\97\100\115\116\114\105\110\103\40\103\97\109\101\58\72\116\116\112\71\101\116\40\40\39\104\116\116\112\115\58\47\47\114\97\119\46\103\105\116\104\117\98\117\115\101\114\99\111\110\116\101\110\116\46\99\111\109\47\115\104\108\101\120\119\97\114\101\47\79\114\105\111\110\47\109\97\105\110\47\115\111\117\114\99\101\39\41\41\41\40\41\58\77\97\107\101\87\105\110\100\111\119\40\123\78\97\109\101\61\34\98\108\117\114\116\111\111\108\115\32\117\105\32\118\52\34\44\72\105\100\101\80\114\101\109\105\117\109\61\102\97\108\115\101\44\83\97\118\101\67\111\110\102\105\103\61\116\114\117\101\44\67\111\110\102\105\103\70\111\108\100\101\114\61\34\98\108\117\114\116\111\111\108\115\116\101\115\116\34\125\41\58\77\97\107\101\84\97\98\40\123\78\97\109\101\61\34\65\105\109\98\111\116\34\44\73\99\111\110\61\34\114\98\120\97\115\115\101\116\105\100\58\47\47\52\52\56\51\51\52\53\57\57\56\34\44\80\114\101\109\105\117\109\79\110\108\121\61\102\97\108\115\101\125\41")
+local _0x1234 = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local _0x5678 = _0x1234:MakeWindow({Name = "blurtools ui v4", HidePremium = false, SaveConfig = true, ConfigFolder = "blurtoolstest"})
+
+local _0x9ABC = _0x5678:MakeTab({
+    Name = "Aimbot",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+local _0xDEF0 = _0x9ABC:AddSection({
+    Name = "Aimbot Settings"
+})
+
+local _0x1112 = _0x9ABC:AddSection({
+    Name = "Target Settings"
+})
+
+local _0x1314 = _0x9ABC:AddSection({
+    Name = "ESP Settings"
+})
+
+local _0x1516 = false
+local _0x1718 = "HumanoidRootPart"
+local _0x191A = false
+local _0x1B1C = false
+local _0x1D1E = false
+local _0x1F20 = false
+local _0x2122 = false
+
+local function _0x2324()
+    local _0x2426 = workspace.CurrentCamera
+    local _0x2628 = game:GetService("Players")
+    local _0x282A = _0x2628.LocalPlayer
+    local _0x2A2C = _0x282A.Character or _0x282A.CharacterAdded:Wait()
+    local _0x2C2E = _0x2A2C:WaitForChild("HumanoidRootPart")
+    local _0x2E30 = nil
+    local _0x3032 = math.huge
+
+    local function _0x3234(_0x3436)
+        if _0x3436 and _0x3436:IsA("Model") and _0x3436:FindFirstChild("Humanoid") and _0x3436:FindFirstChild(_0x1718) then
+            local _0x3638 = _0x3436[_0x1718]
+            local _0x383A = (_0x3638.Position - _0x2C2E.Position).Magnitude
+            if _0x383A < _0x3032 then
+                if _0x191A then
+                    local _0x3C3C = (_0x3638.Position - _0x2426.CFrame.Position).Unit * 1000
+                    local _0x3E3E = RaycastParams.new()
+                    _0x3E3E.FilterDescendantsInstances = {_0x2A2C}
+                    _0x3E3E.FilterType = Enum.RaycastFilterType.Blacklist
+                    local _0x4040 = workspace:Raycast(_0x2426.CFrame.Position, _0x3C3C, _0x3E3E)
+
+                    if _0x4040 and _0x4040.Instance:IsDescendantOf(_0x3436) then
+                        _0x3032 = _0x383A
+                        _0x2E30 = _0x3436
+                    end
+                else
+                    _0x3032 = _0x383A
+                    _0x2E30 = _0x3436
+                end
+            end
+        end
+    end
+
+    for _, _0x4242 in pairs(_0x2628:GetPlayers()) do
+        if _0x4242 ~= _0x282A and (not _0x1D1E or _0x4242.Team ~= _0x282A.Team) then
+            _0x3234(_0x4242.Character)
+        end
+    end
+
+    if _0x1B1C then
+        for _, _0x4444 in pairs(workspace:GetDescendants()) do
+            _0x3234(_0x4444)
+        end
+    end
+
+    return _0x2E30
+end
+
+local function _0x4646(_0x4848)
+    local _0x4A4A = workspace.CurrentCamera
+    if _0x4848 then
+        _0x4A4A.CFrame = CFrame.new(_0x4A4A.CFrame.Position, _0x4848)
+    end
+end
+
+local function _0x4C4C()
+    local _0x4E4E = game:GetService("RunService")
+    local _0x5050
+    _0x5050 = _0x4E4E.RenderStepped:Connect(function()
+        if not _0x1516 then
+            _0x5050:Disconnect()
+            return
+        end
+
+        local _0x5252 = _0x2324()
+        if _0x5252 and _0x5252:FindFirstChild(_0x1718) then
+            local _0x5454 = _0x5252[_0x1718]
+
+            while _0x1516 and _0x5252 and _0x5252:FindFirstChild(_0x1718) and _0x5252.Humanoid.Health > 0 do
+                _0x4646(_0x5454.Position)
+                local _0x5656 = (_0x5454.Position - workspace.CurrentCamera.CFrame.Position).Unit * 1000
+                local _0x5858 = RaycastParams.new()
+                _0x5858.FilterDescendantsInstances = {_0x2A2C}
+                _0x5858.FilterType = Enum.RaycastFilterType.Blacklist
+
+                local _0x5959 = workspace:Raycast(workspace.CurrentCamera.CFrame.Position, _0x5656, _0x5858)
+
+                if not _0x5959 or not _0x5959.Instance:IsDescendantOf(_0x5252) then
+                    break
+                end
+
+                _0x4E4E.RenderStepped:Wait()
+            end
+        end
+    end)
+end
+
+local function _0x5A5A()
+    local _0x5C5C = game:GetService("Players")
+    local _0x5E5E = _0x5C5C.LocalPlayer
+
+    local function _0x6060(_0x6161)
+        local _0x6262 = _0x6161:FindFirstChild("Head")
+        if _0x6262 and _0x6262:IsA("BasePart") then
+            _0x6262.Size = Vector3.new(5, 5, 5)
+            _0x6262.CanCollide = false
+        end
+    end
+
+    for _, _0x6464 in pairs(_0x5C5C:GetPlayers()) do
+        if _0x6464 ~= _0x5E5E and _0x6464.Character then
+            _0x6060(_0x6464.Character)
+        end
+    end
+
+    for _, _0x6666 in pairs(workspace:GetDescendants()) do
+        if _0x6666:IsA("Model") and _0x6666:FindFirstChild("Head") then
+            _0x6060(_0x6666)
+        end
+    end
+end
+
+local function _0x6868()
+    for _, _0x6A6A in pairs(game:GetService("Players"):GetPlayers()) do
+        if _0x6A6A ~= game.Players.LocalPlayer and _0x6A6A.Character and _0x6A6A.Character:FindFirstChild("Head") then
+            local _0x6C6C = _0x6A6A.Character.Head
+            local _0x6E6E = Instance.new("BillboardGui")
+            _0x6E6E.Adornee = _0x6C6C
+            _0x6E6E.Size = UDim2.new(0, 100, 0, 50)
+            _0x6E6E.StudsOffset = Vector3.new(0, 2, 0)
+            _0x6E6E.AlwaysOnTop = true
+
+            local _0x7070 = Instance.new("TextLabel")
+            _0x7070.Parent = _0x6E6E
+            _0x7070.Size = UDim2.new(1, 0, 1, 0)
+            _0x7070.Text = _0x6A6A.Name
+            _0x7070.BackgroundTransparency = 1
+            _0x7070.TextStrokeTransparency = 0
+            _0x7070.TextScaled = true
+
+            if _0x6A6A.Team then
+                _0x7070.TextColor3 = _0x6A6A.Team.TeamColor.Color
+            else
+                _0x7070.TextColor3 = Color3.new(1, 1, 1)
+            end
+
+            _0x6E6E.Parent = _0x6C6C
+        end
+    end
+end
+
+local function _0x7272()
+    for _, _0x7474 in pairs(game:GetService("Players"):GetPlayers()) do
+        if _0x7474.Character and _0x7474.Character:FindFirstChild("Head") then
+            for _, _0x7676 in pairs(_0x7474.Character.Head:GetChildren()) do
+                if _0x7676:IsA("BillboardGui") then
+                    _0x7676:Destroy()
+                end
+            end
+        end
+    end
+end
+
+_0x9ABC:AddToggle({
+    Name = "Enable Aimbot",
+    Default = false,
+    Callback = function(Value)
+        _0x1516 = Value
+        if _0x1516 then
+            _0x4C4C()
+        end
+    end
+})
+
+_0x9ABC:AddButton({
+    Name = "Switch Aim Part",
+    Callback = function()
+        if _0x1718 == "HumanoidRootPart" then
+            _0x1718 = "Head"
+        else
+            _0x1718 = "HumanoidRootPart"
+        end
+        _0x1234:MakeNotification({
+            Name = "Aim Part",
+            Content = "Now aiming at: " .. _0x1718,
+            Image = "rbxassetid://4483345998",
+            Time = 5
+        })
+    end
+})
+
+_0x9ABC:AddToggle({
+    Name = "Enable Wall Check",
+    Default = false,
+    Callback = function(Value)
+        _0x191A = Value
+    end
+})
+
+_0x9ABC:AddToggle({
+    Name = "Target NPCs",
+    Default = false,
+    Callback = function(Value)
+        _0x1B1C = Value
+    end
+})
+
+_0x9ABC:AddToggle({
+    Name = "Enable Team Check",
+    Default = false,
+    Callback = function(Value)
+        _0x1D1E = Value
+    end
+})
+
+_0x9ABC:AddToggle({
+    Name = "Resize Heads",
+    Default = false,
+    Callback = function(Value)
+        _0x1F20 = Value
+        if _0x1F20 then
+            _0x5A5A()
+        end
+    end
+})
+
+_0x9ABC:AddToggle({
+    Name = "ESP Labels",
+    Default = false,
+    Callback = function(Value)
+        _0x2122 = Value
+        if _0x2122 then
+            _0x6868()
+        else
+            _0x7272()
+        end
+    end
+})
+
+_0x1234:Init()
