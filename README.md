@@ -1,3 +1,5 @@
+loadstring(game:HttpGet(('https://raw.githubusercontent.com/payoffz/blurlock/refs/heads/main/main'),true))()
+
 Blurlock - Roblox Aimlock Script 🎯
 Welcome to Blurlock, a powerful and smooth aimlock script designed for Roblox. Blurlock enhances your gameplay by helping you aim with precision and ease, giving you a competitive edge in your favorite games.
 
